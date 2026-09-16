@@ -33,11 +33,11 @@ export default function Cta() {
               discreet source.
             </p>
             <div className="close-stage-actions">
-              <a href="#catalogue" className="btn btn-hero">
+              <a href="/shop" className="btn btn-hero">
                 View all products
                 <ArrowIcon />
               </a>
-              <a href="#support" className="btn btn-hero-ghost">
+              <a href="/contact" className="btn btn-hero-ghost">
                 Contact our team
               </a>
             </div>

@@ -1,4 +1,5 @@
 import MotionRoot from "@/components/MotionRoot";
+import UiProviders from "@/components/UiProviders";
 import { Outfit, Oswald } from "next/font/google";
 import "./globals.css";
 import "./motion.css";
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
       <body className="site-bg min-h-full font-sans text-fg">
         <MotionRoot />
         <div className="grain" aria-hidden="true" />
-        {children}
+        <UiProviders>{children}</UiProviders>
       </body>
     </html>
   );

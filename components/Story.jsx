@@ -37,7 +37,7 @@ export default function Story() {
               From product details to research documentation, we make it simple to verify exactly what
               you&apos;re receiving.
             </p>
-            <a href="#catalogue" className="text-link">
+            <a href="/shop" className="text-link">
               View product details
               <ArrowIcon />
             </a>
@@ -70,7 +70,7 @@ export default function Story() {
                 </li>
               ))}
             </ul>
-            <a href="#catalogue" className="text-link">
+            <a href="/shop/ped" className="text-link">
               View product details
               <ArrowIcon />
             </a>

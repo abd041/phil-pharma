@@ -3,12 +3,17 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { navLinks } from "@/lib/data";
-import { BagIcon, SearchIcon, UserIcon } from "./Icons";
+import { usePathname } from "next/navigation";
+import { navLinks, shopCategories } from "@/lib/data";
+import { BagIcon, HeartIcon, SearchIcon, UserIcon } from "./Icons";
+import { useWishlist } from "./UiProviders";
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const isHome = pathname === "/";
+  const { count } = useWishlist();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -25,12 +30,18 @@ export default function Header() {
   }, [open]);
 
   useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     const onKey = (event) => {
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  const solid = scrolled || open || !isHome;
 
   return (
     <>
@@ -44,7 +55,7 @@ export default function Header() {
       <header className="site-header fixed inset-x-0 top-0 z-50">
         <div
           className={`transition-[background-color,border-color,backdrop-filter] duration-300 ${
-            scrolled || open
+            solid
               ? "border-b border-white/10 bg-[#05070c]/88 backdrop-blur-md"
               : "border-b border-transparent bg-transparent"
           }`}
@@ -72,44 +83,69 @@ export default function Header() {
               aria-label="Primary"
             >
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   className="nav-link"
-                  aria-current={link.label === "Home" ? "page" : undefined}
+                  aria-current={pathname === link.href ? "page" : undefined}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
             <div className="hidden items-center gap-4 text-white/70 xl:flex">
-              <a href="#catalogue" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Search">
+              <Link href="/search" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Search">
                 <SearchIcon />
-              </a>
+              </Link>
               <button type="button" className="label px-1 text-white/70 hover:text-white">
                 GBP £
               </button>
               <span className="h-4 w-px bg-white/20" aria-hidden="true" />
-              <a href="#support" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Account">
+              <Link href="/account" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Account">
                 <UserIcon />
-              </a>
+              </Link>
               <span className="h-4 w-px bg-white/20" aria-hidden="true" />
-              <a href="#catalogue" className="relative flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Bag, 3 items">
+              <Link
+                href="/account#wishlist"
+                className="relative flex h-9 w-9 items-center justify-center hover:text-white"
+                aria-label={`Wishlist, ${count} items`}
+              >
+                <HeartIcon />
+                {count > 0 ? (
+                  <span className="absolute top-0.5 right-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
+                    {count}
+                  </span>
+                ) : null}
+              </Link>
+              <span className="h-4 w-px bg-white/20" aria-hidden="true" />
+              <Link href="/cart" className="relative flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Bag, 3 items">
                 <BagIcon />
                 <span className="absolute top-0.5 right-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
                   3
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div className="flex items-center gap-0.5 xl:hidden">
-              <a href="#catalogue" className="relative flex h-11 w-11 items-center justify-center text-white/80" aria-label="Bag, 3 items">
+              <Link
+                href="/account#wishlist"
+                className="relative flex h-11 w-11 items-center justify-center text-white/80"
+                aria-label={`Wishlist, ${count} items`}
+              >
+                <HeartIcon />
+                {count > 0 ? (
+                  <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
+                    {count}
+                  </span>
+                ) : null}
+              </Link>
+              <Link href="/cart" className="relative flex h-11 w-11 items-center justify-center text-white/80" aria-label="Bag, 3 items">
                 <BagIcon />
                 <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
                   3
                 </span>
-              </a>
+              </Link>
               <button
                 type="button"
                 className="relative z-10 flex h-11 w-11 items-center justify-center"
@@ -147,7 +183,7 @@ export default function Header() {
           <p className="label border-b border-white/10 py-4 text-faint">Index</p>
           <div className="flex flex-col">
             {navLinks.map((link, index) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setOpen(false)}
@@ -157,16 +193,34 @@ export default function Header() {
                   {link.label}
                 </span>
                 <span className="label shrink-0 text-faint">{String(index + 1).padStart(2, "0")}</span>
-              </a>
+              </Link>
             ))}
           </div>
+          <div className="mt-6">
+            <p className="label text-faint">Categories</p>
+            <div className="mt-3 flex flex-col border-t border-white/10">
+              {shopCategories.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={cat.href}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-white/10 py-3 text-sm text-white/75 hover:text-white"
+                >
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
+          </div>
           <div className="mt-auto flex flex-col gap-3 pt-8">
-            <a href="#catalogue" onClick={() => setOpen(false)} className="btn btn-hero w-full">
+            <Link href="/shop" onClick={() => setOpen(false)} className="btn btn-hero w-full">
               Shop peptides
-            </a>
-            <a href="#support" onClick={() => setOpen(false)} className="btn btn-ghost w-full">
+            </Link>
+            <Link href="/account" onClick={() => setOpen(false)} className="btn btn-ghost w-full">
               Account
-            </a>
+            </Link>
+            <Link href="/account#wishlist" onClick={() => setOpen(false)} className="btn btn-ghost w-full">
+              Wishlist
+            </Link>
             <p className="label pt-5 text-faint">GBP £ · Research use only</p>
           </div>
         </nav>

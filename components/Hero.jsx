@@ -109,11 +109,11 @@ export default function Hero() {
             </p>
 
             <div className="hero-enter hero-actions" style={{ animationDelay: "580ms" }}>
-              <a href="#catalogue" className="btn btn-hero">
+              <a href="/shop/peptides" className="btn btn-hero">
                 Shop peptides
                 <ArrowIcon />
               </a>
-              <a href="#essentials" className="btn btn-hero-ghost">
+              <a href="/about" className="btn btn-hero-ghost">
                 Learn more
               </a>
             </div>

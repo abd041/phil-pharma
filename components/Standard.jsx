@@ -13,9 +13,9 @@ import SplitTitle from "./SplitTitle";
 const pointIcons = [ShieldIcon, FlaskIcon, PackageIcon];
 
 const performanceLinks = [
-  { id: "01", label: "Purity First", href: "#catalogue" },
-  { id: "02", label: "Lab Essentials", href: "#essentials" },
-  { id: "03", label: "Research Backed", href: "#verify" },
+  { id: "01", label: "Purity First", href: "/shop/peptides" },
+  { id: "02", label: "Lab Essentials", href: "/shop/accessories" },
+  { id: "03", label: "Research Backed", href: "/about" },
 ];
 
 function HexMark() {

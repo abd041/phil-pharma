@@ -197,3 +197,24 @@ export function ChevronDownIcon({ className = "h-3 w-3" }) {
     </svg>
   );
 }
+
+export function HeartIcon({ className = "h-4 w-4", filled = false }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} aria-hidden="true">
+      <path
+        d="M12 20.2 4.8 13.4a4.4 4.4 0 0 1 0-6.2 4.2 4.2 0 0 1 6 0L12 8.4l1.2-1.2a4.2 4.2 0 0 1 6 0 4.4 4.4 0 0 1 0 6.2L12 20.2Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function CheckIcon({ className = "h-3.5 w-3.5" }) {
+  return (
+    <svg className={className} viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M2 6.2 4.8 9 10 3.2" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
+  );
+}

@@ -21,7 +21,7 @@ export default function ProductCard({ product, index = 0 }) {
             alt={product.name}
             fill
             sizes="(max-width: 639px) 48vw, (max-width: 1280px) 44vw, 22vw"
-            className="object-cover"
+            className="object-contain object-center"
             style={{ objectPosition: product.imagePosition || "center center" }}
           />
           <span className="product-card-fx" aria-hidden="true" />

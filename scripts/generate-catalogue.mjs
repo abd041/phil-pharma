@@ -138,6 +138,7 @@ products.push(
     tag: "THC",
     format: "Pod only",
     hasBundle: true,
+    image: "/images/d9-terps-v2.png",
     notes: "All vapes come with a battery on your first purchase.",
     longDescription:
       "D9 + Terps pod options as listed on the THC menu. Pod only. All vapes come with a battery on your first purchase. How to use: 1 click battery check · 2 clicks pre-heat · 5 clicks on/off · hold to change voltage.",
@@ -176,6 +177,7 @@ products.push(
     subcategoryLabel: "Devices",
     tag: "Accessories",
     format: "Battery",
+    image: "/images/battery-v2.png",
     notes: "Listed on THC menu at £5. All vapes come with a battery on your first purchase.",
     variants: [variant("Battery", 5, { format: "Battery" })],
   })
@@ -190,6 +192,7 @@ products.push(
     subcategoryLabel: "Syringes",
     tag: "Accessories",
     format: "Accessory pack",
+    image: "/images/12-week-peptide-syringe-pack-v2.png",
     description: "12 × 21G needles · 12 × 30G needles · 12 × 1ml dead-space syringes",
     longDescription:
       "12 Week Peptide Syringe Pack. Includes 12 × 21G needles, 12 × 30G needles, and 12 × 1ml dead-space syringes.",
@@ -277,6 +280,47 @@ const standardMeds = [
   ],
 ];
 
+const customMedicationImages = {
+  "diazepam-msj-loose": "/images/diazepam-msj.png",
+  "accutane": "/images/accutane-v4.png",
+  "modafinil": "/images/modafinil-v4.png",
+  "modasafe": "/images/modasafe-v4.png",
+  "armodafinil": "/images/armodafinil-v4.png",
+  "caber": "/images/caber-v4.png",
+  "raloxifene": "/images/raloxifene-v4.png",
+  "telmisartan": "/images/telmisartan-v4.png",
+  "minoxidil": "/images/minoxidil-v6.png",
+  "pregabalin": "/images/pregabalin-v6.png",
+  "zopiclone": "/images/zopiclone-v6.png",
+  "amoxicillin": "/images/amoxicillin-v6.png",
+  "viagra": "/images/viagra-v2.png",
+  "cialis": "/images/cialis-v2.png",
+  "cialis-depoxatine": "/images/cialis-depoxatine-v2.png",
+  "propranolol": "/images/propranolol-v2.png",
+  "arimidex": "/images/arimidex-v3.png",
+  "tamoxifen": "/images/tamoxifen-v2.png",
+  "ezetimibe": "/images/ezetimibe-v2.png",
+  "nebivolol": "/images/nebivolol-v2.png",
+  "finasteride": "/images/finasteride-v2.png",
+  "dutasteride": "/images/dutasteride-v2.png",
+  "promethazine": "/images/promethazine-v2.png",
+  "diazepam-kern-fake": "/images/diazepam-kern-fake-v2.png",
+  "b12": "/images/b12-v4.png",
+  "tramadol-x-fake": "/images/tramadol-x-fake-v2.png",
+  "tramadol-hydrochloride-tillomed": "/images/tramadol-hydrochloride-tillomed-v3.png",
+  "tramadol-hci-sr-tanpal": "/images/tramadol-hci-sr-tanpal-v2.png",
+  "codeine-phosphate-wockhardt": "/images/codeine-phosphate-wockhardt-v2.png",
+  "codeine-phosphate-almus": "/images/codeine-phosphate-almus-v2.png",
+  "dihydrocodeine-accord": "/images/dihydrocodeine-accord-v3.png",
+  "dihydrocodeine-almus": "/images/dihydrocodeine-almus-v2.png",
+  "chlorpheniramine-codeine-lyka": "/images/chlorpheniramine-codeine-lyka-v2.png",
+  "diazepam-bensedin-galenika": "/images/diazepam-bensedin-galenika-v2.png",
+  "diazepam-replek": "/images/diazepam-replek-v2.png",
+  "alprazolem-alprx-neuro-vision": "/images/alprazolem-alprx-neuro-vision-v2.png",
+  "trentinoin-cream": "/images/trentinoin-cream-v2.png",
+  "azelaic-acid-cream": "/images/azelaic-acid-cream-v3.png",
+};
+
 for (const row of standardMeds) {
   const [id, name, brand, variants, note] = row;
   products.push(
@@ -290,6 +334,7 @@ for (const row of standardMeds) {
       tag: "Standard",
       format: "Medication",
       notes: note || "",
+      image: customMedicationImages[id],
       variants: variants.map(([label, price, extra]) => variant(label, price, extra)),
     })
   );
@@ -325,6 +370,7 @@ for (const [id, name, brand, variants] of specialMeds) {
       subcategoryLabel: "Special Medications",
       tag: "Special",
       format: "Medication",
+      image: customMedicationImages[id],
       variants: variants.map(([label, price, extra]) => variant(label, price, { ...extra, format: extra?.format || "Medication" })),
     })
   );
@@ -341,6 +387,7 @@ products.push(
     tag: "Creams",
     format: "Cream",
     hasBundle: true,
+    image: customMedicationImages["trentinoin-cream"],
     variants: [
       variant("0.1%", 10, { strength: "0.1%", format: "Cream" }),
       variant("0.05%", 10, { strength: "0.05%", format: "Cream" }),
@@ -369,6 +416,7 @@ products.push(
     subcategoryLabel: "Prescription Creams",
     tag: "Creams",
     format: "Cream",
+    image: customMedicationImages["azelaic-acid-cream"],
     variants: [variant("20% w/w", 10, { strength: "20% w/w", format: "Cream" })],
   })
 );
@@ -481,6 +529,27 @@ const customVialImages = {
   "hmg-vial": "/images/product-hmg-vial.png",
   "hcg-vial": "/images/product-hcg-vial.png",
   "5-amino-acid-1mq-vial": "/images/product-5-amino-acid-1mq-vial.png",
+  "mk677-vial": "/images/product-mk677-vial.png",
+  "nad-plus-vial": "/images/product-nad-plus-vial.png",
+  "slupp332-vial": "/images/product-slupp332-vial.png",
+  "tesamorelin-vial": "/images/product-tesamorelin-vial.png",
+  "igf-1-vial": "/images/product-igf-1-vial.png",
+  "kpv-vial": "/images/product-kpv-vial.png",
+  "bpc-157-vial": "/images/product-bpc-157-vial.png",
+  "tb-500-vial": "/images/product-tb-500-vial.png",
+  "mot-c-vial": "/images/product-mot-c-vial.png",
+  "d-sip-vial": "/images/product-d-sip-vial.png",
+  "ipamorelin-vial": "/images/product-ipamorelin-vial.png",
+  "pt-141-vial": "/images/product-pt-141-vial.png",
+  "cjc-1259-dac-vial": "/images/product-cjc-1259-dac-vial.png",
+  "cjc-1259-wo-dac-vial": "/images/product-cjc-1259-wo-dac-vial.png",
+  "mt1-vial": "/images/product-mt1-vial.png",
+  "mt2-vial": "/images/product-mt2-vial.png",
+  "ghk-vial": "/images/product-ghk-vial.png",
+  "selank-vial": "/images/product-selank-vial.png",
+  "semax-vial": "/images/product-semax-vial.png",
+  "5-amino-acid-vial": "/images/product-5-amino-acid-vial.png",
+  "bac-water-vial": "/images/product-bac-water-vial.png",
 };
 
 for (const [id, name, variants] of peptideVials) {
@@ -524,6 +593,14 @@ const peptidePens = [
   ["tb-500-pen", "TB-500", [["20mg", 70]]],
 ];
 
+const customPenImages = {
+  "retatrutide-pen": "/images/retatrutide-ready-pen-v2.png",
+  "tirzepitide-pen": "/images/tirzepatide-ready-pen-v2.png",
+  "ghk-pen": "/images/ghk-ready-pen-v2.png",
+  "bpc-157-pen": "/images/bpc-157-ready-pen-v2.png",
+  "tb-500-pen": "/images/tb-500-ready-pen-v2.png",
+};
+
 for (const [id, name, variants] of peptidePens) {
   products.push(
     product({
@@ -535,6 +612,7 @@ for (const [id, name, variants] of peptidePens) {
       tag: "Pens",
       format: "Ready to use pen",
       description: `${name} · Ready to Use Pen`,
+      image: customPenImages[id],
       variants: variants.map(([label, price, extra]) =>
         variant(label, price, { strength: label, format: "Ready to use pen", ...extra })
       ),
@@ -553,6 +631,16 @@ const peptideNasals = [
   ["semax-nasal", "SEMAX", [["10mg", 30]]],
 ];
 
+const customNasalImages = {
+  "mt2-nasal": "/images/mt2-nasal.png",
+  "mt1-nasal": "/images/mt1-nasal.png",
+  "bpc-157-nasal": "/images/bpc-157-nasal.png",
+  "tb-500-nasal": "/images/tb-500-nasal.png",
+  "pt-141-nasal": "/images/pt-141-nasal.png",
+  "selank-nasal": "/images/selank-nasal.png",
+  "semax-nasal": "/images/semax-nasal.png",
+};
+
 for (const [id, name, variants] of peptideNasals) {
   products.push(
     product({
@@ -564,6 +652,7 @@ for (const [id, name, variants] of peptideNasals) {
       tag: "Nasals",
       format: "Nasal",
       description: `${name} · Peptide nasal`,
+      image: customNasalImages[id],
       variants: variants.map(([label, price]) =>
         variant(label, price, { strength: label, format: "Nasal" })
       ),
@@ -572,6 +661,22 @@ for (const [id, name, variants] of peptideNasals) {
 }
 
 // ——— PED · Oils ———
+const customOilImages = {
+  "test-e-hulk-oil": "/images/test-e-hulk-oil-v2.png",
+  "test-c-morph-oil": "/images/test-c-morph-oil-v2.png",
+  "test-p-morph-oil": "/images/test-p-morph-oil-v2.png",
+  "npp-morph-oil": "/images/npp-morph-oil-v2.png",
+  "deca-morph-oil": "/images/deca-morph-oil-v2.png",
+  "tren-a-morph-oil": "/images/tren-a-morph-oil-v2.png",
+  "tren-e-morph-oil": "/images/tren-e-morph-oil-v2.png",
+  "eq-morph-oil": "/images/eq-morph-oil-v2.png",
+  "mast-p-morph-oil": "/images/mast-p-morph-oil-v2.png",
+  "superdrol-morph-oil": "/images/superdrol-morph-oil-v2.png",
+  "anadrol-morph-oil": "/images/anadrol-morph-oil-v2.png",
+  "dbol-morph-oil": "/images/dbol-morph-oil-v2.png",
+  "primo-crown-oil": "/images/primo-crown-oil-v2.png",
+};
+
 const pedOils = [
   ["test-e-hulk-oil", "Test E (Hulk Labs)", "Hulk Labs", [["300mg/ml", 30]]],
   ["test-c-morph-oil", "TEST C (Morph Labs)", "Morph Labs", [["200mg/ml", 30]]],
@@ -600,6 +705,7 @@ for (const [id, name, brand, variants] of pedOils) {
       tag: "Oils",
       format: "Oil · 10ml",
       notes: "All oils are 10ml — Morph Labs / Hulk Labs / Crown",
+      image: customOilImages[id],
       variants: variants.map(([label, price]) =>
         variant(label, price, { strength: label, size: "10ml", format: "Oil" })
       ),
@@ -608,6 +714,11 @@ for (const [id, name, brand, variants] of pedOils) {
 }
 
 // ——— PED · Orals ———
+const customOralImages = {
+  "anavar-crown-oral": "/images/anavar-crown-oral-v3.png",
+  "tbol-crown-oral": "/images/tbol-crown-oral-v2.png",
+};
+
 products.push(
   product({
     id: "anavar-crown-oral",
@@ -618,6 +729,7 @@ products.push(
     subcategoryLabel: "Orals",
     tag: "Orals",
     format: "Oral",
+    image: customOralImages["anavar-crown-oral"],
     variants: [
       variant("20mg x 50", 30, { strength: "20mg", packSize: "x 50", format: "Oral" }),
       variant("50mg x 50", 55, { strength: "50mg", packSize: "x 50", format: "Oral" }),
@@ -635,11 +747,22 @@ products.push(
     subcategoryLabel: "Orals",
     tag: "Orals",
     format: "Oral",
+    image: customOralImages["tbol-crown-oral"],
     variants: [variant("20mg x 50", 35, { strength: "20mg", packSize: "x 50", format: "Oral" })],
   })
 );
 
 // ——— PED · Ready Pens ———
+const customPedPenImages = {
+  "test-e-pen": "/images/test-e-pen-v3.png",
+  "npp-pen": "/images/npp-pen-v2.png",
+  "deca-pen": "/images/deca-pen-v3.png",
+  "tren-a-pen": "/images/tren-a-pen-v2.png",
+  "tren-e-pen": "/images/tren-e-pen-v2.png",
+  "eq-pen": "/images/eq-pen-v2.png",
+  "mast-p-pen": "/images/mast-p-pen-v2.png",
+};
+
 const pedPens = [
   ["test-e-pen", "Test E", [["900mg/3ml", 40]]],
   ["npp-pen", "NPP", [["450mg/3ml", 40]]],
@@ -661,6 +784,7 @@ for (const [id, name, variants] of pedPens) {
       tag: "Pens",
       format: "Ready to use pen",
       description: `${name} · Ready to Use Pen`,
+      image: customPedPenImages[id],
       variants: variants.map(([label, price]) =>
         variant(label, price, { strength: label, format: "Ready to use pen" })
       ),

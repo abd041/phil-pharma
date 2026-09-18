@@ -92,7 +92,7 @@ export default function CartPage() {
                         src={line.image}
                         alt={line.name}
                         fill
-                        className="object-cover"
+                        className="object-contain object-center"
                         sizes="96px"
                         style={{ objectPosition: line.imagePosition || "center center" }}
                       />

@@ -261,7 +261,7 @@ export default function AccountPage() {
                           src={product.image}
                           alt={product.name}
                           fill
-                          className="object-cover"
+                          className="object-contain object-center"
                           sizes="72px"
                         />
                       </div>

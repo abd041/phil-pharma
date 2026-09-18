@@ -47,7 +47,7 @@ export default function ProductDetailClient({ product, related }) {
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 48vw"
-              className="object-cover"
+              className="object-contain object-center"
               style={{ objectPosition: product.imagePosition || "center center" }}
             />
             <span className="product-card-fx" aria-hidden="true" />
@@ -217,7 +217,7 @@ export default function ProductDetailClient({ product, related }) {
                         alt={item.name}
                         fill
                         sizes="(max-width: 639px) 48vw, 22vw"
-                        className="object-cover"
+                        className="object-contain object-center"
                         style={{ objectPosition: item.imagePosition || "center center" }}
                       />
                       <span className="product-card-fx" aria-hidden="true" />

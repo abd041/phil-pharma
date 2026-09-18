@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks, shopCategories } from "@/lib/data";
 import { BagIcon, HeartIcon, SearchIcon, UserIcon } from "./Icons";
-import { useWishlist } from "./UiProviders";
+import { useCart, useWishlist } from "./UiProviders";
 
 export default function Header() {
   const pathname = usePathname();
@@ -14,6 +14,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const isHome = pathname === "/";
   const { count } = useWishlist();
+  const { count: cartCount } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -79,7 +80,7 @@ export default function Header() {
             </Link>
 
             <nav
-              className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 xl:flex xl:gap-10"
+              className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:flex xl:gap-10"
               aria-label="Primary"
             >
               {navLinks.map((link) => (
@@ -94,13 +95,13 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-4 text-white/70 xl:flex">
-              <Link href="/search" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Search">
+            <div className="hidden items-center gap-4 text-white/70 lg:flex">
+              <Link href="/search" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Search products">
                 <SearchIcon />
               </Link>
-              <button type="button" className="label px-1 text-white/70 hover:text-white">
+              <span className="label px-1 text-white/55" title="Prices shown in GBP">
                 GBP £
-              </button>
+              </span>
               <span className="h-4 w-px bg-white/20" aria-hidden="true" />
               <Link href="/account" className="flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Account">
                 <UserIcon />
@@ -113,21 +114,30 @@ export default function Header() {
               >
                 <HeartIcon />
                 {count > 0 ? (
-                  <span className="absolute top-0.5 right-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
+                  <span className="absolute top-0.5 right-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1677FF] px-0.5 text-[10px] font-semibold text-white">
                     {count}
                   </span>
                 ) : null}
               </Link>
               <span className="h-4 w-px bg-white/20" aria-hidden="true" />
-              <Link href="/cart" className="relative flex h-9 w-9 items-center justify-center hover:text-white" aria-label="Bag, 3 items">
+              <Link href="/cart" scroll className="relative flex h-9 w-9 items-center justify-center hover:text-white" aria-label={`Bag, ${cartCount} items`}>
                 <BagIcon />
-                <span className="absolute top-0.5 right-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
-                  3
-                </span>
+                {cartCount > 0 ? (
+                  <span className="absolute top-0.5 right-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1677FF] px-0.5 text-[10px] font-semibold text-white">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                ) : null}
               </Link>
             </div>
 
-            <div className="flex items-center gap-0.5 xl:hidden">
+            <div className="flex items-center gap-0.5 lg:hidden">
+              <Link
+                href="/search"
+                className="relative flex h-11 w-11 items-center justify-center text-white/80"
+                aria-label="Search products"
+              >
+                <SearchIcon />
+              </Link>
               <Link
                 href="/account#wishlist"
                 className="relative flex h-11 w-11 items-center justify-center text-white/80"
@@ -135,16 +145,18 @@ export default function Header() {
               >
                 <HeartIcon />
                 {count > 0 ? (
-                  <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
+                  <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1677FF] px-0.5 text-[10px] font-semibold text-white">
                     {count}
                   </span>
                 ) : null}
               </Link>
-              <Link href="/cart" className="relative flex h-11 w-11 items-center justify-center text-white/80" aria-label="Bag, 3 items">
+              <Link href="/cart" scroll className="relative flex h-11 w-11 items-center justify-center text-white/80" aria-label={`Bag, ${cartCount} items`}>
                 <BagIcon />
-                <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#1677FF] text-[8px] font-semibold text-white">
-                  3
-                </span>
+                {cartCount > 0 ? (
+                  <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1677FF] px-0.5 text-[10px] font-semibold text-white">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                ) : null}
               </Link>
               <button
                 type="button"
@@ -175,7 +187,7 @@ export default function Header() {
 
       <div
         id="mobile-nav"
-        className={`fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[#05070c]/98 pt-[68px] transition-all duration-300 xl:hidden ${
+        className={`fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[#05070c]/98 pt-[68px] transition-all duration-300 lg:hidden ${
           open ? "visible opacity-100 pointer-events-auto" : "invisible opacity-0 pointer-events-none"
         }`}
       >
@@ -213,7 +225,10 @@ export default function Header() {
           </div>
           <div className="mt-auto flex flex-col gap-3 pt-8">
             <Link href="/shop" onClick={() => setOpen(false)} className="btn btn-hero w-full">
-              Shop peptides
+              Shop catalogue
+            </Link>
+            <Link href="/search" onClick={() => setOpen(false)} className="btn btn-ghost w-full">
+              Search
             </Link>
             <Link href="/account" onClick={() => setOpen(false)} className="btn btn-ghost w-full">
               Account

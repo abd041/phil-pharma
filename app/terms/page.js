@@ -1,8 +1,11 @@
 import LegalPage from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Terms & Conditions — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "Terms & Conditions",
+  description: "Terms governing use of the Phil's Pharma website and research catalogue.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

@@ -1,8 +1,11 @@
 import LegalPage from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Returns / Refund Policy — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "Returns / Refund Policy",
+  description: "How return requests are reviewed for unopened research products.",
+  path: "/returns",
+});
 
 export default function ReturnsPage() {
   return (

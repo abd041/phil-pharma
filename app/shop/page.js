@@ -3,13 +3,15 @@ import PageHero from "@/components/PageHero";
 import CategoryTabs from "@/components/CategoryTabs";
 import CatalogueBrowser from "@/components/CatalogueBrowser";
 import { products, shopCategories } from "@/lib/data";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 
-export const metadata = {
-  title: "Shop — Phil's Pharma",
+export const metadata = pageMetadata({
+  title: "Shop",
   description: "Browse research peptides, medications, THC formats, and oils from Phil's Pharma.",
-};
+  path: "/shop",
+});
 
 export default function ShopPage() {
   return (

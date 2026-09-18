@@ -3,7 +3,7 @@ import SiteShell from "@/components/SiteShell";
 
 export default function NotFound() {
   return (
-    <SiteShell footer="minimal">
+    <SiteShell>
       <section className="page-section" style={{ paddingTop: "8rem" }}>
         <div className="page-wrap auth-panel text-center" style={{ marginInline: "auto" }}>
           <p className="label text-faint">404</p>

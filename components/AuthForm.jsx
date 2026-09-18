@@ -15,7 +15,7 @@ export default function AuthForm({
       </p>
       <h1 className="display auth-title">{title}</h1>
       {body ? <p className="copy mt-3">{body}</p> : null}
-      <form className="auth-form" onSubmit={onSubmit}>
+      <form className="auth-form" onSubmit={onSubmit} noValidate>
         {children}
       </form>
       {footer ? <p className="auth-footer copy">{footer}</p> : null}

@@ -218,3 +218,39 @@ export function CheckIcon({ className = "h-3.5 w-3.5" }) {
     </svg>
   );
 }
+
+export function BoltIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M13.2 3.5 6.4 13.2h5.1L10.8 20.5 17.6 10.8h-5.1L13.2 3.5Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function UsbCIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="4.2" y="9.4" width="15.6" height="5.2" rx="2.6" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M8.2 12h7.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function GemIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M7.2 5.5h9.6L21 10.2 12 19.5 3 10.2 7.2 5.5Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path d="M3.4 10.2h17.2M9.1 5.5 12 10.2 14.9 5.5" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
+  );
+}

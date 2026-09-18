@@ -6,7 +6,15 @@ import Constants from "@/components/Constants";
 import Story from "@/components/Story";
 import Process from "@/components/Process";
 import Cta from "@/components/Cta";
-import Footer from "@/components/Footer";
+import SiteFooter from "@/components/SiteFooter";
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Phil's Pharma — Pure. Potent. Performance.",
+  description:
+    "Research peptides and lab essentials with straightforward product information, batch documentation on request, and discreet UK dispatch.",
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -21,7 +29,7 @@ export default function Home() {
         <Process />
         <Cta />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

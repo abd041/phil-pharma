@@ -1,12 +1,14 @@
-import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
-import { mockOrders } from "@/lib/data";
-import { ArrowIcon } from "@/components/Icons";
+import OrdersList from "@/components/OrdersList";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "My Orders — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "My orders",
+  description: "Review Phil's Pharma order history. Live order data will sync from the backend later.",
+  path: "/account/orders",
+  noIndex: true,
+});
 
 export default function OrdersPage() {
   return (
@@ -17,30 +19,9 @@ export default function OrdersPage() {
         body="Sample order history for the account UI. Live order data will sync from the backend later."
         crumbs={[{ href: "/account", label: "Account" }, { label: "Orders" }]}
       />
-
       <section className="page-section">
         <div className="page-wrap">
-          <div className="orders-table">
-            <div className="orders-head label text-faint">
-              <span>Order</span>
-              <span>Date</span>
-              <span>Status</span>
-              <span>Total</span>
-              <span />
-            </div>
-            {mockOrders.map((order) => (
-              <div key={order.id} className="orders-row">
-                <span>{order.id}</span>
-                <span>{order.date}</span>
-                <span className="order-status">{order.status}</span>
-                <span>{order.total}</span>
-                <Link href={`/account/orders/${order.id}`} className="text-link">
-                  Details
-                  <ArrowIcon />
-                </Link>
-              </div>
-            ))}
-          </div>
+          <OrdersList />
         </div>
       </section>
     </SiteShell>

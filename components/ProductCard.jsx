@@ -2,18 +2,38 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowIcon, CartIcon, HeartIcon, StarIcon } from "./Icons";
-import { useToast, useWishlist } from "./UiProviders";
+import { ArrowIcon, CartIcon, HeartIcon } from "./Icons";
+import StarRating from "./StarRating";
+import { getDefaultVariant } from "@/lib/data";
+import { useCart, useToast, useWishlist } from "./UiProviders";
 
 export default function ProductCard({ product, index = 0 }) {
   const { pushToast } = useToast();
   const { has, toggle } = useWishlist();
+  const { addItem } = useCart();
   const wished = has(product.id);
-  const outOfStock = product.stock === "Out of stock";
-  const optionCount = product.variants?.length || 0;
+  const variants = product.variants || [];
+  const hasOosVariant = variants.some((variant) => variant.stock === "Out of stock");
+  const allOut = variants.length > 0 && variants.every((variant) => variant.stock === "Out of stock");
+  const parentOut = product.stock === "Out of stock" || allOut;
+  const defaultVariant = getDefaultVariant(product);
+  const optionCount = variants.length;
+
+  const quickAdd = () => {
+    if (parentOut || !defaultVariant) {
+      pushToast(`${product.name} is out of stock`, "muted");
+      return;
+    }
+    addItem({
+      slug: product.slug,
+      variantId: defaultVariant.id,
+      qty: 1,
+      name: `${product.name} (${defaultVariant.label})`,
+    });
+  };
 
   return (
-    <article className={`product-card ${outOfStock ? "is-oos" : ""}`}>
+    <article className={`product-card ${parentOut ? "is-oos" : ""}`}>
       <div className="product-card-media">
         <Link href={`/product/${product.slug}`} className="product-card-media-link">
           <Image
@@ -35,7 +55,7 @@ export default function ProductCard({ product, index = 0 }) {
           type="button"
           className={`wishlist-btn ${wished ? "is-active" : ""}`}
           aria-pressed={wished}
-          aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+          aria-label={wished ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
           onClick={() => toggle(product)}
         >
           <HeartIcon filled={wished} />
@@ -46,26 +66,14 @@ export default function ProductCard({ product, index = 0 }) {
         <h3>
           <Link href={`/product/${product.slug}`}>{product.name}</Link>
         </h3>
-        <p className="product-card-rating">
-          <span aria-hidden="true">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-          </span>
-          {product.rating}
-          <span>({product.reviews})</span>
-        </p>
+        <StarRating rating={product.rating} count={product.reviews} label="" />
         <p className="product-card-copy">{product.description}</p>
-        {optionCount > 1 ? (
-          <p className="product-card-options">{optionCount} options</p>
-        ) : null}
+        {optionCount > 1 ? <p className="product-card-options">{optionCount} options</p> : null}
         {product.hasBundle ? <p className="product-card-deal">Bundle / deal available</p> : null}
         <div className="product-card-meta-row">
           <p className="product-card-price">{product.priceLabel}</p>
-          <p className={`product-card-stock ${outOfStock ? "is-oos" : ""}`}>
-            {outOfStock ? "Out of stock" : product.stock}
+          <p className={`product-card-stock ${parentOut || hasOosVariant ? "is-oos" : ""}`}>
+            {parentOut ? "Out of stock" : hasOosVariant ? "Some options OOS" : product.stock}
           </p>
         </div>
         <div className="product-card-actions">
@@ -77,17 +85,11 @@ export default function ProductCard({ product, index = 0 }) {
           <button
             type="button"
             className="product-card-quick"
-            disabled={outOfStock}
-            onClick={() =>
-              pushToast(
-                outOfStock
-                  ? `${product.name} is out of stock`
-                  : `${product.name} — open product to choose options`,
-                outOfStock ? "muted" : "success"
-              )
-            }
+            disabled={parentOut}
+            aria-label={parentOut ? `${product.name} is unavailable` : `Quick add ${product.name}`}
+            onClick={quickAdd}
           >
-            {outOfStock ? "Unavailable" : "Quick add"}
+            {parentOut ? "Unavailable" : "Quick add"}
           </button>
         </div>
       </div>

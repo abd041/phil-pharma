@@ -1,15 +1,16 @@
-"use client";
-
-import { useState } from "react";
-import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
-import AuthForm from "@/components/AuthForm";
-import { ArrowIcon } from "@/components/Icons";
+import ForgotPasswordForm from "@/components/ForgotPasswordForm";
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Forgot password",
+  description: "Request a password reset for your Phil's Pharma account.",
+  path: "/forgot-password",
+  noIndex: true,
+});
 
 export default function ForgotPasswordPage() {
-  const [sent, setSent] = useState(false);
-
   return (
     <SiteShell>
       <PageHero
@@ -20,33 +21,7 @@ export default function ForgotPasswordPage() {
       />
       <section className="page-section">
         <div className="page-wrap auth-wrap">
-          <AuthForm
-            title="Reset access"
-            body={
-              sent
-                ? "If an account exists for that email, a reset link would be sent. (Mock confirmation.)"
-                : "Enter the email associated with your account."
-            }
-            footer={
-              <>
-                Remembered it? <Link href="/login">Back to login</Link> ·{" "}
-                <Link href="/reset-password">Have a reset code?</Link>
-              </>
-            }
-            onSubmit={(event) => {
-              event.preventDefault();
-              setSent(true);
-            }}
-          >
-            <label>
-              Email
-              <input type="email" name="email" required defaultValue="researcher@lab.example" />
-            </label>
-            <button type="submit" className="btn btn-hero w-full">
-              {sent ? "Link sent" : "Send reset link"}
-              <ArrowIcon />
-            </button>
-          </AuthForm>
+          <ForgotPasswordForm />
         </div>
       </section>
     </SiteShell>

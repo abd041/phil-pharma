@@ -11,8 +11,15 @@ import Link from "next/link";
 const filters = [
   { id: "all", label: "All products" },
   { id: "peptides", label: "Peptides" },
-  { id: "oils", label: "Accessories" },
+  { id: "accessories", label: "Accessories" },
+  { id: "oils", label: "Oils" },
 ];
+
+function matchesFilter(item, filter) {
+  if (filter === "all") return true;
+  if (filter === "oils") return item.subcategory === "oils";
+  return item.category === filter;
+}
 
 export default function Featured() {
   const [filter, setFilter] = useState("all");
@@ -22,10 +29,10 @@ export default function Featured() {
     []
   );
 
-  const visible = useMemo(() => {
-    if (filter === "all") return catalogue;
-    return catalogue.filter((item) => item.category === filter);
-  }, [catalogue, filter]);
+  const visible = useMemo(
+    () => catalogue.filter((item) => matchesFilter(item, filter)),
+    [catalogue, filter]
+  );
 
   return (
     <section id="catalogue" className="relative pt-20 pb-16 sm:pt-28 sm:pb-20" data-inview>
@@ -39,7 +46,7 @@ export default function Featured() {
               <p className="label text-faint">Catalogue</p>
               <p className="label text-faint">03 / Selection</p>
             </div>
-            <SplitTitle className="display display-lg">Featured peptides</SplitTitle>
+            <SplitTitle className="display display-lg">Featured selection</SplitTitle>
             <p className="copy measure mt-4">
               A focused selection from the Phil&apos;s Pharma catalogue.
             </p>
@@ -67,11 +74,17 @@ export default function Featured() {
         </Reveal>
 
         <div className="product-cards">
-          {visible.map((product, index) => (
-            <Reveal key={product.id} delay={index * 0.1} variant="scale">
-              <ProductCard product={product} index={index} />
-            </Reveal>
-          ))}
+          {visible.length ? (
+            visible.map((product, index) => (
+              <Reveal key={product.id} delay={index * 0.1} variant="scale">
+                <ProductCard product={product} index={index} />
+              </Reveal>
+            ))
+          ) : (
+            <p className="copy" style={{ gridColumn: "1 / -1" }}>
+              No featured products in this category.
+            </p>
+          )}
         </div>
 
         <Reveal className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 py-6">

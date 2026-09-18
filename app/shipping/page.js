@@ -1,8 +1,11 @@
 import LegalPage from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Shipping Information — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "Shipping Information",
+  description: "How Phil's Pharma research orders are packed and dispatched.",
+  path: "/shipping",
+});
 
 export default function ShippingPage() {
   return (

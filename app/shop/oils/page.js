@@ -1,9 +1,13 @@
-import { redirect } from "next/navigation";
+import CategoryPageView from "@/components/CategoryPageView";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "PED — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "Oils",
+  description:
+    "Injectable oils from Morph Labs, Hulk Labs, and Crown — all 10ml as listed on the Phil's Pharma client menu.",
+  path: "/shop/oils",
+});
 
-export default function OilsRedirectPage() {
-  redirect("/shop/ped");
+export default function OilsShopPage() {
+  return <CategoryPageView slug="oils" />;
 }

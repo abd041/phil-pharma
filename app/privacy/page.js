@@ -1,8 +1,11 @@
 import LegalPage from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Privacy Policy — Phil's Pharma",
-};
+export const metadata = pageMetadata({
+  title: "Privacy Policy",
+  description: "How Phil's Pharma intends to handle account and order information.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

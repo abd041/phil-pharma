@@ -2,14 +2,14 @@ import SiteShell from "@/components/SiteShell";
 import PageHero from "@/components/PageHero";
 import CategoryTabs from "@/components/CategoryTabs";
 import CatalogueBrowser from "@/components/CatalogueBrowser";
-import { getProductsByCategory, shopCategories } from "@/lib/data";
+import { getShopCategoryProducts, shopCategories } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 export default function CategoryPageView({ slug }) {
   const category = shopCategories.find((item) => item.slug === slug);
   if (!category) notFound();
 
-  const items = getProductsByCategory(slug);
+  const items = getShopCategoryProducts(slug);
 
   return (
     <SiteShell>

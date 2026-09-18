@@ -17,7 +17,7 @@ export default function Story() {
           <Reveal variant="scale" className="split-band-frame">
             <div className="split-band-media">
               <Image
-                src="/images/story-essentials-v2.png"
+                src="/images/story-essentials-v3.png"
                 alt="Phil's Pharma Growth Hormone 10 IU with laboratory glassware"
                 fill
                 sizes="(max-width: 1024px) 70vw, 26rem"
